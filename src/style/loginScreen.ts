@@ -5,7 +5,7 @@ import { commonColors, commonStyles } from './common';
 const styles = StyleSheet.create({
   logoContainer: {
     alignItems: 'center',
-    marginBottom: 48,
+    marginBottom: 28,
   },
   logo: {
     width: 112,
@@ -17,18 +17,37 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: '700',
   },
+  messageContainer: {
+    marginBottom: 32,
+  },
+  greeting: {
+    color: commonColors.text,
+    fontSize: 34,
+    fontWeight: '700',
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+  guideText: {
+    color: commonColors.description,
+    fontSize: 22,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
   form: {
-    gap: 16,
+    gap: 18,
   },
   input: {
-    height: 54,
+    height: 60,
     borderWidth: 1,
     borderColor: commonColors.inputBorder,
-    borderRadius: 8,
+    borderRadius: 14,
     backgroundColor: commonColors.white,
     color: commonColors.text,
-    fontSize: 16,
-    paddingHorizontal: 16,
+    fontSize: 20,
+    paddingHorizontal: 18,
+  },
+  disabledButton: {
+    opacity: 0.45,
   },
 });
 

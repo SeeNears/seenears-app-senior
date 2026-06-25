@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export const commonColors = {
   background: '#F6F8FB',
-  primary: '#2563EB',
+  primary: '#f5bb96',
   text: '#17202A',
   description: '#5A6573',
   white: '#FFFFFF',
