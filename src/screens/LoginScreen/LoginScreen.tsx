@@ -18,9 +18,35 @@ type LoginScreenProps = {
 };
 
 function LoginScreen({ onLogin }: LoginScreenProps) {
-  const [id, setId] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [verificationCode, setVerificationCode] = useState('');
+  const [isVerificationRequested, setIsVerificationRequested] = useState(false);
+
+  const isVerificationButtonEnabled = phoneNumber.length > 0;
+  const isLoginButtonEnabled =
+    isVerificationRequested && phoneNumber.length > 0 && verificationCode.length === 6;
+
+  const handlePhoneNumberChange = (text: string) => {
+    setPhoneNumber(text.replace(/[^0-9]/g, ''));
+  };
+
+  const handleVerificationCodeChange = (text: string) => {
+    setVerificationCode(text.replace(/[^0-9]/g, '').slice(0, 6));
+  };
+
+  const handleVerificationRequest = () => {
+    if (!isVerificationButtonEnabled) {
+      return;
+    }
+
+    setIsVerificationRequested(true);
+  };
 
   const handleLogin = () => {
+    if (!isLoginButtonEnabled) {
+      return;
+    }
+
     onLogin();
   };
 
@@ -40,27 +66,61 @@ function LoginScreen({ onLogin }: LoginScreenProps) {
         <View style={loginScreenStyles.form}>
           <TextInput
             style={loginScreenStyles.input}
-            value={id}
-            onChangeText={setId}
-            placeholder="ID"
+            value={phoneNumber}
+            onChangeText={handlePhoneNumberChange}
+            placeholder="전화번호를 입력해주세요"
             placeholderTextColor={loginPlaceholderColor}
             autoCapitalize="none"
             autoCorrect={false}
-            keyboardType="default"
+            keyboardType="number-pad"
             returnKeyType="done"
-            accessibilityLabel="ID input"
+            accessibilityLabel="전화번호 입력"
           />
 
           <Pressable
             style={({ pressed }) => [
               loginScreenStyles.button,
-              pressed && loginScreenStyles.buttonPressed,
+              !isVerificationButtonEnabled && loginScreenStyles.disabledButton,
+              pressed &&
+                isVerificationButtonEnabled &&
+                loginScreenStyles.buttonPressed,
+            ]}
+            onPress={handleVerificationRequest}
+            disabled={!isVerificationButtonEnabled}
+            accessibilityRole="button"
+            accessibilityLabel="인증번호 요청 버튼"
+          >
+            <Text style={loginScreenStyles.buttonText}>인증번호 받기</Text>
+          </Pressable>
+
+          {isVerificationRequested && (
+            <TextInput
+              style={loginScreenStyles.input}
+              value={verificationCode}
+              onChangeText={handleVerificationCodeChange}
+              placeholder="인증번호 6자리를 입력해주세요"
+              placeholderTextColor={loginPlaceholderColor}
+              autoCapitalize="none"
+              autoCorrect={false}
+              keyboardType="number-pad"
+              maxLength={6}
+              returnKeyType="done"
+              accessibilityLabel="인증번호 입력"
+            />
+          )}
+
+          <Pressable
+            style={({ pressed }) => [
+              loginScreenStyles.button,
+              !isLoginButtonEnabled && loginScreenStyles.disabledButton,
+              pressed && isLoginButtonEnabled && loginScreenStyles.buttonPressed,
             ]}
             onPress={handleLogin}
+            disabled={!isLoginButtonEnabled}
             accessibilityRole="button"
-            accessibilityLabel="Login button"
+            accessibilityLabel="로그인 버튼"
           >
-            <Text style={loginScreenStyles.buttonText}>Login</Text>
+            <Text style={loginScreenStyles.buttonText}>로그인</Text>
           </Pressable>
         </View>
       </View>
