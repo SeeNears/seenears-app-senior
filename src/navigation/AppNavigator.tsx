@@ -3,7 +3,9 @@ import React, { useState } from 'react';
 import CalendarScreen from '../screens/CalendarScreen';
 import LoginScreen from '../screens/LoginScreen';
 import VoiceRecordScreen from '../screens/VoiceRecordScreen';
-import WeatherScreen from '../screens/WeatherScreen';
+import WeatherScreen, {
+  type WeatherMood,
+} from '../screens/WeatherScreen/WeatherScreen';
 
 type ScreenName = 'Login' | 'Weather' | 'VoiceRecord' | 'Calendar';
 
@@ -13,7 +15,9 @@ function AppNavigator() {
   if (currentScreen === 'Weather') {
     return (
       <WeatherScreen
-        onNavigateToVoiceRecord={() => setCurrentScreen('VoiceRecord')}
+        onNavigateToVoiceRecord={(_mood: WeatherMood) =>
+          setCurrentScreen('VoiceRecord')
+        }
         onNavigateToCalendar={() => setCurrentScreen('Calendar')}
       />
     );
