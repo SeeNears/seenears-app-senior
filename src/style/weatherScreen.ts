@@ -3,21 +3,59 @@ import { StyleSheet } from 'react-native';
 import { commonStyles } from './common';
 
 const styles = StyleSheet.create({
-  buttonGroup: {
-    gap: 14,
+  content: {
+    flex: 1,
+    justifyContent: 'center',
   },
-  secondaryButton: {
-    backgroundColor: '#0F766E',
+  title: {
+    color: '#4A342A',
+    fontSize: 34,
+    fontWeight: '700',
+    marginBottom: 36,
+    textAlign: 'center',
+  },
+  moodButtonGroup: {
+    gap: 18,
+  },
+  moodButton: {
+    minHeight: 96,
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#E8B391',
+    borderRadius: 18,
+    backgroundColor: '#FFF7F1',
+    paddingHorizontal: 22,
+    paddingVertical: 18,
+  },
+  moodButtonText: {
+    color: '#4A342A',
+    fontSize: 30,
+    fontWeight: '700',
+    marginBottom: 6,
+  },
+  moodDescription: {
+    color: '#735446',
+    fontSize: 20,
+    fontWeight: '600',
+  },
+  mailboxButton: {
+    minHeight: 64,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 18,
+    backgroundColor: '#F5BB96',
+    marginTop: 24,
+  },
+  mailboxButtonText: {
+    color: '#4A342A',
+    fontSize: 24,
+    fontWeight: '700',
   },
 });
 
 export const weatherScreenStyles = {
   safeArea: commonStyles.safeArea,
   container: commonStyles.centerContainer,
-  title: commonStyles.screenTitle,
-  description: commonStyles.screenDescription,
-  button: commonStyles.primaryButton,
   buttonPressed: commonStyles.buttonPressed,
-  buttonText: commonStyles.buttonText,
   ...styles,
 };

@@ -3,10 +3,38 @@ import { Pressable, SafeAreaView, Text, View } from 'react-native';
 
 import { weatherScreenStyles } from '../../style/weatherScreen';
 
+export type WeatherMood = 'sunny' | 'cloudy' | 'rainy';
+
 type WeatherScreenProps = {
-  onNavigateToVoiceRecord: () => void;
+  onNavigateToVoiceRecord: (mood: WeatherMood) => void;
   onNavigateToCalendar: () => void;
 };
+
+const moodOptions: Array<{
+  mood: WeatherMood;
+  label: string;
+  description: string;
+  accessibilityLabel: string;
+}> = [
+  {
+    mood: 'sunny',
+    label: '☀️ 맑음',
+    description: '기분이 좋거나 편안해요',
+    accessibilityLabel: '오늘 기분 맑음 선택',
+  },
+  {
+    mood: 'cloudy',
+    label: '☁️ 흐림',
+    description: '조금 신경 쓰이는 일이 있어요',
+    accessibilityLabel: '오늘 기분 흐림 선택',
+  },
+  {
+    mood: 'rainy',
+    label: '🌧️ 비',
+    description: '마음이 무겁거나 슬퍼요',
+    accessibilityLabel: '오늘 기분 비 선택',
+  },
+];
 
 function WeatherScreen({
   onNavigateToVoiceRecord,
@@ -15,35 +43,43 @@ function WeatherScreen({
   return (
     <SafeAreaView style={weatherScreenStyles.safeArea}>
       <View style={weatherScreenStyles.container}>
-        <Text style={weatherScreenStyles.title}>Weather</Text>
-        <Text style={weatherScreenStyles.description}>오늘의 날씨 화면입니다.</Text>
+        <View style={weatherScreenStyles.content}>
+          <Text style={weatherScreenStyles.title}>오늘 기분은 어떠신가요?</Text>
 
-        <View style={weatherScreenStyles.buttonGroup}>
-          <Pressable
-            style={({ pressed }) => [
-              weatherScreenStyles.button,
-              pressed && weatherScreenStyles.buttonPressed,
-            ]}
-            onPress={onNavigateToVoiceRecord}
-            accessibilityRole="button"
-            accessibilityLabel="Go to voice record screen"
-          >
-            <Text style={weatherScreenStyles.buttonText}>Voice Record</Text>
-          </Pressable>
-
-          <Pressable
-            style={({ pressed }) => [
-              weatherScreenStyles.button,
-              weatherScreenStyles.secondaryButton,
-              pressed && weatherScreenStyles.buttonPressed,
-            ]}
-            onPress={onNavigateToCalendar}
-            accessibilityRole="button"
-            accessibilityLabel="Go to calendar screen"
-          >
-            <Text style={weatherScreenStyles.buttonText}>Calendar</Text>
-          </Pressable>
+          <View style={weatherScreenStyles.moodButtonGroup}>
+            {moodOptions.map(option => (
+              <Pressable
+                key={option.mood}
+                style={({ pressed }) => [
+                  weatherScreenStyles.moodButton,
+                  pressed && weatherScreenStyles.buttonPressed,
+                ]}
+                onPress={() => onNavigateToVoiceRecord(option.mood)}
+                accessibilityRole="button"
+                accessibilityLabel={option.accessibilityLabel}
+              >
+                <Text style={weatherScreenStyles.moodButtonText}>
+                  {option.label}
+                </Text>
+                <Text style={weatherScreenStyles.moodDescription}>
+                  {option.description}
+                </Text>
+              </Pressable>
+            ))}
+          </View>
         </View>
+
+        <Pressable
+          style={({ pressed }) => [
+            weatherScreenStyles.mailboxButton,
+            pressed && weatherScreenStyles.buttonPressed,
+          ]}
+          onPress={onNavigateToCalendar}
+          accessibilityRole="button"
+          accessibilityLabel="우편함 보기 버튼"
+        >
+          <Text style={weatherScreenStyles.mailboxButtonText}>우편함 보기</Text>
+        </Pressable>
       </View>
     </SafeAreaView>
   );
