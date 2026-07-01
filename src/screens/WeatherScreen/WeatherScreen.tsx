@@ -7,7 +7,7 @@ export type WeatherMood = 'sunny' | 'cloudy' | 'rainy';
 
 type WeatherScreenProps = {
   onNavigateToVoiceRecord: (mood: WeatherMood) => void;
-  onNavigateToCalendar: () => void;
+  onNavigateToLetterBox: () => void;
 };
 
 const moodOptions: Array<{
@@ -38,7 +38,7 @@ const moodOptions: Array<{
 
 function WeatherScreen({
   onNavigateToVoiceRecord,
-  onNavigateToCalendar,
+  onNavigateToLetterBox,
 }: WeatherScreenProps) {
   return (
     <SafeAreaView style={weatherScreenStyles.safeArea}>
@@ -74,7 +74,7 @@ function WeatherScreen({
             weatherScreenStyles.mailboxButton,
             pressed && weatherScreenStyles.buttonPressed,
           ]}
-          onPress={onNavigateToCalendar}
+          onPress={onNavigateToLetterBox}
           accessibilityRole="button"
           accessibilityLabel="우편함 보기 버튼"
         >
