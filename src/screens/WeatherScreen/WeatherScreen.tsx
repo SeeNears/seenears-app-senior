@@ -1,11 +1,13 @@
 import React from 'react';
-import { Pressable, SafeAreaView, Text, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { weatherScreenStyles } from '../../style/weatherScreen';
 
 export type WeatherMood = 'sunny' | 'cloudy' | 'rainy';
 
 type WeatherScreenProps = {
+  selectedMood: WeatherMood | null;
   onNavigateToVoiceRecord: (mood: WeatherMood) => void;
   onNavigateToLetterBox: () => void;
 };
@@ -37,36 +39,59 @@ const moodOptions: Array<{
 ];
 
 function WeatherScreen({
+  selectedMood,
   onNavigateToVoiceRecord,
   onNavigateToLetterBox,
 }: WeatherScreenProps) {
+  const selectedMoodOption = moodOptions.find(
+    option => option.mood === selectedMood,
+  );
+
   return (
     <SafeAreaView style={weatherScreenStyles.safeArea}>
       <View style={weatherScreenStyles.container}>
         <View style={weatherScreenStyles.content}>
-          <Text style={weatherScreenStyles.title}>오늘 기분은 어떠신가요?</Text>
+          {selectedMoodOption ? (
+            <View style={weatherScreenStyles.selectedMoodCard}>
+              <Text style={weatherScreenStyles.selectedMoodLabel}>
+                오늘 선택한 기분
+              </Text>
+              <Text style={weatherScreenStyles.selectedMoodText}>
+                {selectedMoodOption.label}
+              </Text>
+              <Text style={weatherScreenStyles.selectedMoodDescription}>
+                오늘의 기록은 완료되었어요.
+              </Text>
+            </View>
+          ) : (
+            <>
+              <Text style={weatherScreenStyles.title}>
+                오늘 기분은 어떠신가요?
+              </Text>
 
-          <View style={weatherScreenStyles.moodButtonGroup}>
-            {moodOptions.map(option => (
-              <Pressable
-                key={option.mood}
-                style={({ pressed }) => [
-                  weatherScreenStyles.moodButton,
-                  pressed && weatherScreenStyles.buttonPressed,
-                ]}
-                onPress={() => onNavigateToVoiceRecord(option.mood)}
-                accessibilityRole="button"
-                accessibilityLabel={option.accessibilityLabel}
-              >
-                <Text style={weatherScreenStyles.moodButtonText}>
-                  {option.label}
-                </Text>
-                <Text style={weatherScreenStyles.moodDescription}>
-                  {option.description}
-                </Text>
-              </Pressable>
-            ))}
-          </View>
+              <View style={weatherScreenStyles.moodButtonGroup}>
+                {moodOptions.map(option => (
+                  <Pressable
+                    key={option.mood}
+                    style={({ pressed }) => [
+                      weatherScreenStyles.moodButton,
+                      pressed && weatherScreenStyles.buttonPressed,
+                    ]}
+                    onPress={() => onNavigateToVoiceRecord(option.mood)}
+                    accessibilityRole="button"
+                    accessibilityLabel={option.accessibilityLabel}
+                  >
+                    <Text style={weatherScreenStyles.moodButtonText}>
+                      {option.label}
+                    </Text>
+                    <Text style={weatherScreenStyles.moodDescription}>
+                      {option.description}
+                    </Text>
+                  </Pressable>
+                ))}
+              </View>
+            </>
+          )}
         </View>
 
         <Pressable

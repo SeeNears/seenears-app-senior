@@ -11,10 +11,40 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingVertical: 30,
     marginBottom: 24,
+    overflow: 'hidden',
   },
   recordingCard: {
     borderColor: '#F5BB96',
     backgroundColor: '#FCE3D2',
+  },
+  recordingCardNormal: {
+    borderColor: '#F1A977',
+    backgroundColor: '#FAD1B8',
+  },
+  recordingCardLoud: {
+    borderColor: '#E89161',
+    backgroundColor: '#F7BE9C',
+  },
+  silenceCard: {
+    borderColor: '#D7C1B2',
+    backgroundColor: '#F7EFE9',
+  },
+  voiceLevelBar: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 12,
+    backgroundColor: '#F5BB96',
+  },
+  voiceLevelBarQuiet: {
+    backgroundColor: '#D7C1B2',
+  },
+  voiceLevelBarNormal: {
+    backgroundColor: '#F1A977',
+  },
+  voiceLevelBarLoud: {
+    backgroundColor: '#E89161',
   },
   moodText: {
     color: '#735446',
@@ -43,6 +73,22 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: '700',
     marginTop: 18,
+    textAlign: 'center',
+  },
+  filePathText: {
+    color: '#735446',
+    fontSize: 16,
+    fontWeight: '600',
+    lineHeight: 24,
+    marginTop: 16,
+    textAlign: 'center',
+  },
+  errorText: {
+    color: '#B85C4A',
+    fontSize: 18,
+    fontWeight: '700',
+    lineHeight: 26,
+    marginTop: 16,
     textAlign: 'center',
   },
   cancelButton: {

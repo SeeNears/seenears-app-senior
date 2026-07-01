@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import {
   Image,
   Pressable,
-  SafeAreaView,
   Text,
   TextInput,
   View,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import {
   loginPlaceholderColor,
