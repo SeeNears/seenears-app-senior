@@ -1,11 +1,11 @@
 import React, { useMemo, useState } from 'react';
 import {
   Pressable,
-  SafeAreaView,
   ScrollView,
   Text,
   View,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { letterBoxScreenStyles } from '../../style/letterBoxScreen';
 import { type WeatherMood } from '../WeatherScreen/WeatherScreen';

@@ -21,7 +21,7 @@ type ScreenName =
 
 function AppNavigator() {
   const [currentScreen, setCurrentScreen] = useState<ScreenName>('Login');
-  const [selectedMood, setSelectedMood] = useState<WeatherMood>('sunny');
+  const [selectedMood, setSelectedMood] = useState<WeatherMood | null>(null);
   const [selectedLetterRecord, setSelectedLetterRecord] =
     useState<LetterRecord | null>(null);
 
@@ -33,6 +33,7 @@ function AppNavigator() {
   if (currentScreen === 'Weather') {
     return (
       <WeatherScreen
+        selectedMood={selectedMood}
         onNavigateToVoiceRecord={(mood: WeatherMood) => {
           setSelectedMood(mood);
           setCurrentScreen('VoiceRecord');
@@ -43,6 +44,19 @@ function AppNavigator() {
   }
 
   if (currentScreen === 'VoiceRecord') {
+    if (!selectedMood) {
+      return (
+        <WeatherScreen
+          selectedMood={selectedMood}
+          onNavigateToVoiceRecord={(mood: WeatherMood) => {
+            setSelectedMood(mood);
+            setCurrentScreen('VoiceRecord');
+          }}
+          onNavigateToLetterBox={() => setCurrentScreen('LetterBox')}
+        />
+      );
+    }
+
     return (
       <VoiceRecordScreen
         mood={selectedMood}

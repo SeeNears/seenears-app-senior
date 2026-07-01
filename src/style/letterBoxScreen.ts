@@ -67,11 +67,11 @@ const styles = StyleSheet.create({
   },
   emptyDay: {
     width: '14.285%',
-    height: 66,
+    height: 74,
   },
   dayCell: {
     width: '14.285%',
-    minHeight: 66,
+    minHeight: 74,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
@@ -88,13 +88,13 @@ const styles = StyleSheet.create({
   },
   dayText: {
     color: '#4A342A',
-    fontSize: 21,
+    fontSize: 25,
     fontWeight: '700',
   },
   dayIconText: {
     color: '#4A342A',
-    fontSize: 18,
-    marginTop: 5,
+    fontSize: 22,
+    marginTop: 6,
   },
   unreadBadge: {
     position: 'absolute',
